@@ -43,6 +43,7 @@ class InvoicePrinter extends FPDF
     public $date;
     public $time;
     public $due;
+    public $purchaseOrderNumber;
     public $from;
     public $to;
     public $items;
@@ -199,6 +200,11 @@ class InvoicePrinter extends FPDF
     public function setDue($date)
     {
         $this->due = $date;
+    }
+
+    public function setPurchaseOrderNumber($purchaseOrderNumber)
+    {
+        $this->purchaseOrderNumber = $purchaseOrderNumber;
     }
 
     public function setLogo($logo = 0, $maxWidth = 0, $maxHeight = 0)
@@ -401,7 +407,8 @@ class InvoicePrinter extends FPDF
             - max(
                 $this->GetStringWidth(mb_strtoupper($this->lang['number'], self::ICONV_CHARSET_INPUT)),
                 $this->GetStringWidth(mb_strtoupper($this->lang['date'], self::ICONV_CHARSET_INPUT)),
-                $this->GetStringWidth(mb_strtoupper($this->lang['due'], self::ICONV_CHARSET_INPUT))
+                $this->GetStringWidth(mb_strtoupper($this->lang['due'], self::ICONV_CHARSET_INPUT)),
+                $this->GetStringWidth(mb_strtoupper($this->lang['po_order'], self::ICONV_CHARSET_INPUT))
             )
             - max(
                 $this->GetStringWidth(mb_strtoupper($this->reference, self::ICONV_CHARSET_INPUT)),
@@ -459,6 +466,16 @@ class InvoicePrinter extends FPDF
             $this->SetTextColor(50, 50, 50);
             $this->SetFont($this->font, '', 9);
             $this->Cell(0, $lineheight, $this->due, 0, 1, 'R');
+        }
+        // PO Order
+        if (!empty($this->purchaseOrderNumber)) {
+            $this->Cell($positionX, $lineheight);
+            $this->SetFont($this->font, 'B', 9);
+            $this->SetTextColor($this->color[0], $this->color[1], $this->color[2]);
+            $this->Cell(32, $lineheight, iconv(self::ICONV_CHARSET_INPUT, self::ICONV_CHARSET_OUTPUT_A, mb_strtoupper($this->lang['po_order'], self::ICONV_CHARSET_INPUT)) . ':', 0, 0, 'L');
+            $this->SetTextColor(50, 50, 50);
+            $this->SetFont($this->font, '', 9);
+            $this->Cell(0, $lineheight, $this->purchaseOrderNumber, 0, 1, 'R');
         }
         //Custom Headers
         if (count($this->customHeaders) > 0) {
