@@ -425,7 +425,7 @@ class InvoicePrinter extends FPDF
                 iconv(self::ICONV_CHARSET_INPUT, self::ICONV_CHARSET_OUTPUT_A, mb_strtoupper($this->lang['number'], self::ICONV_CHARSET_INPUT) . ':'),
                 0,
                 0,
-                'L'
+                'R'
             );
             $this->SetTextColor(50, 50, 50);
             $this->SetFont($this->font, '', 9);
@@ -435,7 +435,7 @@ class InvoicePrinter extends FPDF
         $this->Cell($positionX, $lineheight);
         $this->SetFont($this->font, 'B', 9);
         $this->SetTextColor($this->color[0], $this->color[1], $this->color[2]);
-        $this->Cell(32, $lineheight, iconv(self::ICONV_CHARSET_INPUT, self::ICONV_CHARSET_OUTPUT_A, mb_strtoupper($this->lang['date'], self::ICONV_CHARSET_INPUT)) . ':', 0, 0, 'L');
+        $this->Cell(32, $lineheight, iconv(self::ICONV_CHARSET_INPUT, self::ICONV_CHARSET_OUTPUT_A, mb_strtoupper($this->lang['date'], self::ICONV_CHARSET_INPUT)) . ':', 0, 0, 'R');
         $this->SetTextColor(50, 50, 50);
         $this->SetFont($this->font, '', 9);
         $this->Cell(0, $lineheight, $this->date, 0, 1, 'R');
@@ -462,7 +462,7 @@ class InvoicePrinter extends FPDF
             $this->Cell($positionX, $lineheight);
             $this->SetFont($this->font, 'B', 9);
             $this->SetTextColor($this->color[0], $this->color[1], $this->color[2]);
-            $this->Cell(32, $lineheight, iconv(self::ICONV_CHARSET_INPUT, self::ICONV_CHARSET_OUTPUT_A, mb_strtoupper($this->lang['due'], self::ICONV_CHARSET_INPUT)) . ':', 0, 0, 'L');
+            $this->Cell(32, $lineheight, iconv(self::ICONV_CHARSET_INPUT, self::ICONV_CHARSET_OUTPUT_A, mb_strtoupper($this->lang['due'], self::ICONV_CHARSET_INPUT)) . ':', 0, 0, 'R');
             $this->SetTextColor(50, 50, 50);
             $this->SetFont($this->font, '', 9);
             $this->Cell(0, $lineheight, $this->due, 0, 1, 'R');
@@ -472,7 +472,7 @@ class InvoicePrinter extends FPDF
             $this->Cell($positionX, $lineheight);
             $this->SetFont($this->font, 'B', 9);
             $this->SetTextColor($this->color[0], $this->color[1], $this->color[2]);
-            $this->Cell(32, $lineheight, iconv(self::ICONV_CHARSET_INPUT, self::ICONV_CHARSET_OUTPUT_A, mb_strtoupper($this->lang['po_order'], self::ICONV_CHARSET_INPUT)) . ':', 0, 0, 'L');
+            $this->Cell(32, $lineheight, iconv(self::ICONV_CHARSET_INPUT, self::ICONV_CHARSET_OUTPUT_A, mb_strtoupper($this->lang['po_order'], self::ICONV_CHARSET_INPUT)) . ':', 0, 0, 'R');
             $this->SetTextColor(50, 50, 50);
             $this->SetFont($this->font, '', 9);
             $this->Cell(0, $lineheight, $this->purchaseOrderNumber, 0, 1, 'R');
