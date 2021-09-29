@@ -27,9 +27,9 @@ class InvoicePrinter extends FPDF
     public $columnSpacing = 0.3;                /* Spacing between Item Tables */
     public $referenceformat = ['.', ',', 'left', false, false];    /* Currency formater */
     public $margins = [
-        'l' => 15,
-        't' => 15,
-        'r' => 15,
+        'l' => 10,
+        't' => 10,
+        'r' => 10,
     ]; /* l: Left Side , t: Top Side , r: Right Side */
     public $fontSizeProductDescription = 7;                /* font size of product description */
 
@@ -498,7 +498,7 @@ class InvoicePrinter extends FPDF
             } else {
                 $this->SetY($this->GetY() + 10);
             }
-            $this->Ln(5);
+            $this->Ln(2);
             $this->SetFillColor($this->color[0], $this->color[1], $this->color[2]);
             $this->SetTextColor($this->color[0], $this->color[1], $this->color[2]);
 
@@ -520,7 +520,7 @@ class InvoicePrinter extends FPDF
                 if ($this->displayToFromHeaders === true) {
                     $this->Cell($width, $lineheight, iconv(self::ICONV_CHARSET_INPUT, self::ICONV_CHARSET_OUTPUT_A, mb_strtoupper($this->lang['from'], self::ICONV_CHARSET_INPUT)), 0, 0, 'L');
                     $this->Cell(0, $lineheight, iconv(self::ICONV_CHARSET_INPUT, self::ICONV_CHARSET_OUTPUT_A, mb_strtoupper($this->lang['to'], self::ICONV_CHARSET_INPUT)), 0, 0, 'L');
-                    $this->Ln(7);
+                    $this->Ln(6);
                     $this->SetLineWidth(0.4);
                     $this->Line($this->margins['l'], $this->GetY(), $this->margins['l'] + $width - 10, $this->GetY());
                     $this->Line(
@@ -541,7 +541,7 @@ class InvoicePrinter extends FPDF
                 $this->Cell(0, $lineheight, iconv(self::ICONV_CHARSET_INPUT, self::ICONV_CHARSET_OUTPUT_A, $this->to[0] ?? 0), 0, 0, 'L');
                 $this->SetFont($this->font, '', 8);
                 $this->SetTextColor(100, 100, 100);
-                $this->Ln(7);
+                $this->Ln(5);
                 for ($i = 1, $iMax = max($this->from === null ? 0 : count($this->from), $this->to === null ? 0 : count($this->to)); $i < $iMax; $i++) {
                     // avoid undefined error if TO and FROM array lengths are different
                     if (!empty($this->from[$i]) || !empty($this->to[$i])) {
@@ -551,7 +551,7 @@ class InvoicePrinter extends FPDF
                     $this->Ln(5);
                 }
                 $this->Ln(-6);
-                $this->Ln(5);
+                $this->Ln(2);
             } else {
                 $this->Ln(-10);
             }
@@ -786,7 +786,6 @@ class InvoicePrinter extends FPDF
         }
         $this->productsEnded = true;
         $this->Ln();
-        $this->Ln(3);
 
         //Badge
         if ($this->badge) {
