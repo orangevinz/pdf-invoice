@@ -20,9 +20,10 @@ class InvoicePrinter extends FPDF
     public const ICONV_CHARSET_INPUT = 'UTF-8';
     public const ICONV_CHARSET_OUTPUT_A = 'ISO-8859-1//TRANSLIT';
     public const ICONV_CHARSET_OUTPUT_B = 'windows-1252//TRANSLIT';
+    public const CUSTOM_FONT_PATH = '/inc/fpdf/font/';
 
     public $angle = 0;
-    public $font = 'helvetica';                 /* Font Name : See inc/fpdf/font for all supported fonts */
+    public $font = 'cereal';                 /* Font Name : See inc/fpdf/font for all supported fonts */
     public $columnOpacity = 0.06;               /* Items table background color opacity. Range (0.00 - 1) */
     public $columnSpacing = 0.3;                /* Spacing between Item Tables */
     public $referenceformat = ['.', ',', 'left', false, false];    /* Currency formater */
@@ -78,6 +79,7 @@ class InvoicePrinter extends FPDF
 
         $this->AliasNbPages();
         $this->SetMargins($this->margins['l'], $this->margins['t'], $this->margins['r']);
+        $this->fontpath = dirname(__DIR__) . self::CUSTOM_FONT_PATH;
     }
 
     private function setLanguage($language)
@@ -393,6 +395,8 @@ class InvoicePrinter extends FPDF
 
         //Title
         $this->SetTextColor(0, 0, 0);
+        $this->AddFont('cereal', '', 'AirbnbCerealLight.php');
+        $this->AddFont('cereal', 'B', 'AirbnbCerealMedium.php');
         $this->SetFont($this->font, 'B', 20);
         if (isset($this->title) and !empty($this->title)) {
             $this->Cell(0, 5, iconv(self::ICONV_CHARSET_INPUT, self::ICONV_CHARSET_OUTPUT_A, mb_strtoupper($this->title, self::ICONV_CHARSET_INPUT)), 0, 1, 'R');
