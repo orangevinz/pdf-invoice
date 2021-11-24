@@ -345,15 +345,15 @@ class InvoicePrinter extends FPDF
         $this->totals[] = $t;
     }
 
-    public function addTitle($title)
+    public function addTitle($title, $align = 'L')
     {
-        $this->addText[] = ['title', $title];
+        $this->addText[] = ['title', $title, $align];
     }
 
-    public function addParagraph($paragraph)
+    public function addParagraph($paragraph, $align = 'L')
     {
         $paragraph = $this->br2nl($paragraph);
-        $this->addText[] = ['paragraph', $paragraph];
+        $this->addText[] = ['paragraph', $paragraph, $align];
     }
 
     public function addBadge($badge, $color = false)
@@ -817,7 +817,7 @@ class InvoicePrinter extends FPDF
             if ($text[0] == 'title') {
                 $this->SetFont($this->font, 'b', 9);
                 $this->SetTextColor(50, 50, 50);
-                $this->Cell(0, 10, iconv(self::ICONV_CHARSET_INPUT, self::ICONV_CHARSET_OUTPUT_A, mb_strtoupper($text[1], self::ICONV_CHARSET_INPUT)), 0, 0, 'L', 0);
+                $this->Cell(0, 10, iconv(self::ICONV_CHARSET_INPUT, self::ICONV_CHARSET_OUTPUT_A, mb_strtoupper($text[1], self::ICONV_CHARSET_INPUT)), 0, 0, $text[2], 0);
                 $this->Ln();
                 $this->SetLineWidth(0.3);
                 $this->SetDrawColor($this->color[0], $this->color[1], $this->color[2]);
@@ -832,7 +832,7 @@ class InvoicePrinter extends FPDF
             if ($text[0] == 'paragraph') {
                 $this->SetTextColor(80, 80, 80);
                 $this->SetFont($this->font, '', 8);
-                $this->MultiCell(0, 4, iconv(self::ICONV_CHARSET_INPUT, self::ICONV_CHARSET_OUTPUT_A, $text[1]), 0, 'L', 0);
+                $this->MultiCell(0, 4, iconv(self::ICONV_CHARSET_INPUT, self::ICONV_CHARSET_OUTPUT_A, $text[1]), 0, $text[2], 0);
                 $this->Ln(4);
             }
         }
